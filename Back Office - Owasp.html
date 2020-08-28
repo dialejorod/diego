@@ -1,0 +1,215 @@
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>ZAP Scanning Report</title>
+        <style>
+body{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #000;
+  font-size: 13px;
+}
+h1{
+  text-align: center;
+  font-weight: bold;
+  font-size: 32px
+}
+h3{
+  font-size: 16px;
+}
+table{
+  border: none;
+  font-size: 13px;
+}
+td, th {
+  padding: 3px 4px;
+  word-break: break-word;
+}
+th{
+  font-weight: bold;
+}
+.results th{
+  text-align: left;
+}
+.spacer{
+  margin: 10px;
+}
+.spacer-lg{
+  margin: 40px;
+}
+.indent1{
+  padding: 4px 20px;
+}
+.indent2{
+  padding: 4px 40px;
+}
+.risk-high{
+  background-color: red;
+  color: #FFF;
+}
+.risk-medium{
+  background-color: orange;
+  color: #FFF;
+}
+.risk-low{
+  background-color: yellow;
+  color: #000;
+}
+.risk-info{
+  background-color: blue;
+  color: #FFF;
+}
+.summary th{
+  color: #FFF;
+}
+</style>
+    </head>
+    <body>
+        <h1>
+            <img src="data:image/png;base64,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">
+ZAP Scanning Report
+
+        </h1>
+        <p>
+</p>
+        <h3>Summary of Alerts</h3>
+        <table width="45%" class="summary">
+            <tr bgcolor="#666666">
+                <th width="45%" height="24">Risk 
+      Level</th><th width="55%" align="center">Number 
+      of Alerts</th>
+            </tr>
+            <tr bgcolor="#e8e8e8">
+                <td><a href="#high">High</a></td><td align="center">1</td>
+            </tr>
+            <tr bgcolor="#e8e8e8">
+                <td><a href="#medium">Medium</a></td><td align="center">0</td>
+            </tr>
+            <tr bgcolor="#e8e8e8">
+                <td><a href="#low">Low</a></td><td align="center">0</td>
+            </tr>
+            <tr bgcolor="#e8e8e8">
+                <td><a href="#info">Informational</a></td><td align="center">0</td>
+            </tr>
+        </table>
+        <div class="spacer-lg"></div>
+        <h3>Alert Detail</h3>
+        <div class="spacer"></div>
+        <table width="100%" class="results">
+              
+  
+  
+            <tr height="24" class="risk-high">
+                <th width="20%"><a name="high"></a>High (Medium)</th><th width="80%">Path Traversal</th>
+            </tr>
+              
+  
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">Description</td><td width="80%"><p>La t&eacute;cnica de ataque Path Traversal permite a un atacante acceder a los archivos, directorios y comandos que potencialmente residen fuera del directorio ra&iacute;z de documentos web. Un atacante puede controlar una URL de tal forma que el sitio web ejecutar&aacute; o mostrar&aacute; la informaci&oacute;n de los archivos que son arbitrarios en cualquier parte del servidor web. Cualquier dispositivo que se exponga a una interfaz que se basa en HTTP es potencialmente vulnerable a un Path Traversal.</p><p></p><p>La mayoria de los sitios web proh&iacute;ben el acceso de los usuarios a alg&uacute;n sitio espec&iacute;fico del sistema de los archivos, normalmente denominado directorio "ra&iacute;z del documento web" o "ra&iacute;z CGI". Estos directorios poseen los archivos que estan destinados al acceso del usuario y el ejecutable que es necesario para poder controlar la funcionalidad correcta de la aplicaci&oacute;n web. Para poder ingresar a los archivos o activar los comandos en cualquier zona del sistema de los archivos, los ataquesde trayectoria de rutas van a utilizar la capacidad de las secuencias de todos los caracteres especiales.</p><p></p><p>El ataque Path Traversal m&aacute;s elemental utiliza la secuencia de los caracteres especiales "../" para poder modificar la ubicaci&oacute;n del recurso que es requerido en la URL. Aunque la gran mayor&iacute;a de los servidores web que son populares van a evitar que esta t&eacute;cnica se escape de la ra&iacute;z del documento web, las codificaciones que son alternativas de la secuencia "../" pueden impedir los filtros de seguridad. These method variations include valid and invalid Unicode-encoding ("..%u2216" or "..%c0%af") of the forward slash character, backslash characters ("..\") on Windows-based servers, URL encoded characters "%2e%2e%2f"), and double URL encoding ("..%255c") of the backslash character.</p><p></p><p>Inclusive si el servidor web impide de forma correcta los intentos de trayectoria en la ruta de la URL, una aplicaci&oacute;n web en s&iacute; misma puede ser muy vulnerable provocado por el manejo de forma incorrecta de la entrada que fue proporcionada por el usuario. Este es un problema muy com&uacute;n de las aplicaciones web que utilizan los mecanismos de plantilla o cargan alg&uacute;n texto est&aacute;tico de los archivos. En las variaciones de los ataques, el valor del par&aacute;metro de la URL original se modifica por el nombrede uno de los archivos de &oacute;rdenes din&aacute;micos de la aplicaci&oacute;n web. Provocando que, los resultados puedan mostrar el c&oacute;digo fuente porque el archivo se interpreta como un texto en vez de como un archivo de &oacute;rdenes ejecutable. Est&aacute;s t&eacute;cnicas muchas veces utilizan caracteres especiales extras, como el punto (".") para poder revelar la lista del directorio de trabajo actual, o los caracteres que son NULOS "%00 para poder evadir las verificaciones elementales de la extensi&oacute;n de los archivos.</p></td>
+            </tr>
+            <TR vAlign="top">
+                <TD colspan="2"></TD>
+            </TR>
+              
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent1">URL</td><td width="80%">https://qa2.bancodeoccidente.com.co/icbs-backoffice-web/Process;IDAVAL_BO=QLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418!-2069881945?MID=Process%3BIDAVAL_BO%3DQLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418%21-2069881945&amp;AID=LOGIN-0006&amp;RQI=5B001740705C0B2</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Method</td><td width="80%">GET</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Parameter</td><td width="80%">MID</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Attack</td><td width="80%">Process;IDAVAL_BO=QLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418!-2069881945</td>
+            </tr>
+              
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent1">URL</td><td width="80%">https://qa2.bancodeoccidente.com.co/icbs-backoffice-web/Process;IDAVAL_BO=q0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9!-2069881945?AID=LOGIN-0006&amp;MID=Process%3BIDAVAL_BO%3Dq0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9%21-2069881945&amp;RQI=5B001740705C08C</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Method</td><td width="80%">GET</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Parameter</td><td width="80%">MID</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Attack</td><td width="80%">Process;IDAVAL_BO=q0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9!-2069881945</td>
+            </tr>
+              
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent1">URL</td><td width="80%">https://qa2.bancodeoccidente.com.co/icbs-backoffice-web/Process;IDAVAL_BO=QLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418!-2069881945?MID=&amp;AID=Process%3BIDAVAL_BO%3DQLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418%21-2069881945&amp;RQI=5B001740705C0B2</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Method</td><td width="80%">GET</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Parameter</td><td width="80%">AID</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Attack</td><td width="80%">Process;IDAVAL_BO=QLwNSE0Oi53lXm9A24BzI3MU94sbSlOA8X-OJ9LeGC8-N556P418!-2069881945</td>
+            </tr>
+              
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent1">URL</td><td width="80%">https://qa2.bancodeoccidente.com.co/icbs-backoffice-web/Process;IDAVAL_BO=q0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9!-2069881945?AID=Process%3BIDAVAL_BO%3Dq0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9%21-2069881945&amp;MID=&amp;RQI=5B001740705C08C</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Method</td><td width="80%">GET</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Parameter</td><td width="80%">AID</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%" class="indent2">Attack</td><td width="80%">Process;IDAVAL_BO=q0QNR9mq8grWGdnPopGTKi034B9dwz9CqkrjcmTm52LXV4BsmER9!-2069881945</td>
+            </tr>
+              
+  
+  
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">Instances</td><td width="80%">4</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">Solution</td><td width="80%"><p>Asuma que toda la entrada es maliciosa. Utilice una estrategia de validaci&oacute;n de entrada "aceptar bien conocidos", es decir, utilice alguna lista blanca de entradas aceptables que se ajuste de forma estricta a las especificaciones. Rechace cualquier entrada que no se adapte de forma estricta a las especificaciones, o cambielas por algo que s&iacute; lo haga. No conf&iacute;e solamente en la b&uacute;squeda de entradas maliciosas o malformadas (es decir, no conf&iacute;e en una lista negra). Sin embargo, las listas negras pueden ser muy &uacute;tiles para detectar posibles ataques o diagnosticar que entradas est&aacute;n tan malformadas que se deber&iacute;an rechazar directamente.</p><p></p><p>Al realizar la validaci&oacute;n de entrada, usted debe considerar todas las propiedades potencialmente destacadas, incluida la longitud, el tipo de entrada, el rango completo de valores aceptables, las entradas faltantes o adicionales, la sintaxis, el sentido entre los campos que se encuentran relacionados y la conformidad con todas las reglas comerciales. Como un ejemplo de l&oacute;gica de las reglas comerciales, "bote" puede ser v&aacute;lido de forma sint&aacute;ctica porque solo posee caracteres que son alfanum&eacute;ricos, pero no es v&aacute;lido si est&aacute; esperando los colores como "rojo" o "azul". </p><p></p><p>Para los nombres de los archivos, utilice las listas blancas que son estrictas y que limiten el grupo de caracteres que se van a utilizar. Si es posible, solo permita un solo car&aacute;cter "." en el nombre del archivo para poder prevenir las vulnerabilidades y rechazar los separadores de directorios como por ejemplo "/". Utilice una lista blanca de las extensiones del archivo que sea permitida.</p><p></p><p>Advertencia: si usted intenta limpiar sus datos, tiene que hacerlo para que el resultado final no est&eacute; en la forma en el que estos puedan ser un peligro. Un mecanismo para desinfectar puede provcar la eliminaci&oacute;n de caracteres como por ejemplo "." y ";" que pueden ser necesitados para varias explociones. Un atacante puede intentar burlar al mecanismo de desinfecci&oacute;n para que este "limpie" los datos de una forma que puede ser muy peligrosa. Supongamos que el atacante logra inyectar un "." dentro de un nombre de un archivo (por ejemplo, "archivo sensi.tive") y el mecanismo que se encarga de desinfectar elimina el car&aacute;cter que da como resultado que el nombre del archivo v&aacute;lido sea, "archivo sensible". Si ahora suponemos que los datos de entrada son seguros, entonces el archivo tiene la posibilidad de verse comprometido. </p><p></p><p>Las entradas se deben decodificar y canonicalizar a la representaci&oacute;n que se encuentra actualmente de manera interna de la aplicaci&oacute;n antes de validarlas. Aseg&uacute;rese de que su aplicaci&oacute;n no pueda descodificar la misma entrada dos veces. Dichos errores podr&iacute;an utilizarse para evadir los esquemas de la lista blanca ingresando entradas muy peligrosas luego de que se hayan verificado.</p><p></p><p>Utilice alguna funci&oacute;n de canonicalizaci&oacute;n de una ruta que fue incorporada (como realpath() en C) la cual origina la versi&oacute;n can&oacute;nica de la ruta de acceso, que produce la eliminaci&oacute;n de forma efectiva de las secuencias ".." y los enlaces que son simb&oacute;licos.</p><p></p><p>Ejecute su codigo utilizando los privilegios m&aacute;s bajos que se necesitan para poder realizar todas las tareas que son necesarias. Si es posible, cree unas cuentas que se encuentren aisladas con provilegios limitados que solo se utilizan para una sola tarea. De esta forma, un ataque que sea exitoso no le proporcionar&aacute; al atacante el acceso de forma inmediata al resto del software o su dominio. Por ejemplo, las aplicaciones de las bases de datos muy pocas veces requieren ejecutarse como el administrador de la base de datos, en especial en las operaciones que son cotidianas.</p><p></p><p>Cuando el grupo de los objetos que son aceptados, como nombre de los archivos o URL, es limitado o conocido, tiene que crear una asignaci&oacute;n de un grupo de valores de entradas que son fijos (como ID num&eacute;ricos) a los nombres de los archivos o URL que son reales, y adem&aacute;s tiene que rechazar todas las otras entradas.</p><p></p><p>Ejecute su c&oacute;digo en un dominio de "c&aacute;rcel" o un dominio que sea similar el cual imponga los l&iacute;mites estrictos entre el proceso y el sistema operativo. Esto puede ser que restrinja de forma efectiva a qu&eacute; archivos se pueden ingresar en un directorio particular o qu&eacute; comandos puede utilizar su software.</p><p></p><p>Los ejemplos de niveles de sistema operativo incluyen el Unix chroot jail, AppArmor, and SELinux. Normalmente, el c&oacute;digo proporcionado puede otorgar cierta protecci&oacute;n. Por ejemplo, java.io.FilePermission en Java SecurityManager le permite especificar las restricciones en las operaciones de archivos.</p><p></p><p>Esto puede que no sea la soluci&oacute;n viable, y solo limita el impacto al sistema operativo; el resto de tu aplicaci&oacute;n puede estar expuesta.</p></td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">Reference</td><td width="80%"><p>http://projects.webappsec.org/Path-Traversal</p><p>http://cwe.mitre.org/data/definitions/22.html</p></td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">CWE Id</td><td width="80%">22</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">WASC Id</td><td width="80%">33</td>
+            </tr>
+              
+            <tr bgcolor="#e8e8e8">
+                <td width="20%">Source ID</td><td width="80%">1</td>
+            </tr>
+            
+        </table>
+    </body>
+</html>
